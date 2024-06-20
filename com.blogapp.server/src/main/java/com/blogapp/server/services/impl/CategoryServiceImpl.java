@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class CategoryServiceImpl  implements CategoryService {
@@ -33,7 +34,6 @@ public class CategoryServiceImpl  implements CategoryService {
          cat.setCategoryTitle(categoryDto.getCategoryTitle());
          cat.setCategoryDescription(categoryDto.getCategoryDescription());
 
-
          Category updatedcat = this.categoryRepo.save(cat);
 
          return this.modelMapper.map(updatedcat,CategoryDto.class);
@@ -41,16 +41,20 @@ public class CategoryServiceImpl  implements CategoryService {
 
     @Override
     public void deleteCategory(Integer categoryId) {
-
+        Category cat= this.categoryRepo.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category", "category id", categoryId));
+        this.categoryRepo.delete(cat);
     }
 
     @Override
     public CategoryDto getCategory(Integer categoryId) {
-        return null;
+        Category cat= this.categoryRepo.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category", "category id", categoryId));
+        return this.modelMapper.map(cat,CategoryDto.class);
     }
 
     @Override
     public List<CategoryDto> getCategories() {
-        return List.of();
+        List<Category>categories=this.categoryRepo.findAll();
+        List<CategoryDto>catDtos =categories.stream().map((cat)->this.modelMapper.map(cat,CategoryDto.class)).collect(Collectors.toList());
+        return catDtos;
     }
 }
