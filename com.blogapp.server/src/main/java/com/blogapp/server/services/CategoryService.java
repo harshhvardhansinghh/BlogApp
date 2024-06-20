@@ -1,8 +1,10 @@
 package com.blogapp.server.services;
 
 import com.blogapp.server.payloads.CategoryDto;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 public interface CategoryService {
 
