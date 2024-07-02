@@ -1,12 +1,18 @@
 package com.blogapp.server.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.Length;
 
 import java.util.Date;
 
 @Entity
 @Table(name="posts")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Post {
 
     @Id
