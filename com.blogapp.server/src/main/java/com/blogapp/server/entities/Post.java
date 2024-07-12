@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.hibernate.Length;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="posts")
@@ -37,4 +39,7 @@ public class Post {
     //relationship among user and posts
     @ManyToOne
     private User user;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private Set<Comment> comments=new HashSet<>();
 }
