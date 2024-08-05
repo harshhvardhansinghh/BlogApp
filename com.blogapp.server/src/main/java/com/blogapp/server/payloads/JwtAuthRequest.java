@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class JwtAuthRequest {
 
-    private String username;
+    private String username; //email
     private String password;
 }
